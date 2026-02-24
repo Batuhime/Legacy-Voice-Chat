@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batuhime • LEGACY - Yeni Nesil Sesli Sohbet Uygulaması</title>
+<meta name="description" content="Batuhime LEGACY ile arkadaşlarınla sesli sohbet odalarında buluş. Ücretsiz, anlık bağlantı, güvenli ve eğlenceli sesli chat deneyimi.">
+<meta name="keywords" content="batuhime, legacy, sesli sohbet, voice chat, sesli chat, arkadaş sohbet, online ses, Türkiye">
+<meta name="author" content="Batuhime">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (Facebook, LinkedIn, paylaşımlar) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Batuhime • LEGACY - Yeni Nesil Sesli Sohbet">
+<meta property="og:description" content="Arkadaşlarınla sesli sohbet odalarında buluş. Ücretsiz ve anlık sesli chat.">
+<meta property="og:image" content="assets/img/icon.png">
+<meta property="og:url" content="https://batuhime.com/">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Batuhime LEGACY">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Batuhime • LEGACY - Sesli Sohbet">
+<meta name="twitter:description" content="Ücretsiz sesli sohbet odaları. Arkadaşlarınla anlık sesli bağlan.">
+
+<link rel="canonical" href="https://batuhime.com/">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="icon" type="image/png" href="assets/img/icon.png">
+
+<!-- JSON-LD: Google için uygulama bilgisi (görünmez, sadece SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Batuhime LEGACY",
+  "alternateName": "LEGACY Sesli Sohbet",
+  "description": "Yeni nesil ücretsiz sesli sohbet uygulaması. Odalar oluştur, arkadaşlarınla sesli konuş.",
+  "url": "https://batuhime.com/",
+  "applicationCategory": "SocialNetworkingApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" }
+}
+</script>
+
+<style>
+:root{
+    --primary:#5865f2;
+    --bg:#0b0e16;
+    --glass:rgba(255,255,255,0.05);
+    --text:#fff;
+    --sub:#9aa4ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter, sans-serif;}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+/* LIGHT PARTICLES */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* NAV */
+nav{
+    position:fixed;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    backdrop-filter:blur(10px);
+    z-index:999;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+}
+
+.logo img{
+    width:36px;
+    animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+    from{filter:drop-shadow(0 0 5px #5865f2);}
+    to{filter:drop-shadow(0 0 25px #5865f2);}
+}
+
+.beta-tag{
+    background:rgba(88,101,242,.15);
+    color:var(--primary);
+    padding:4px 10px;
+    border-radius:12px;
+    font-size:.7rem;
+    margin-left:10px;
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:120px 8% 60px;
+    gap:60px;
+    flex-wrap:wrap;
+}
+
+.hero-left{flex:1;min-width:300px;}
+
+.hero-left h1{
+    font-size:3rem;
+    background:linear-gradient(90deg,#fff,#9aa4ff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero-left p{
+    margin-top:20px;
+    color:#aaa;
+    line-height:1.6;
+}
+
+.btn-login-glow{
+    margin-top:40px;
+    padding:18px 25px;
+    border-radius:20px;
+    border:none;
+    background:var(--primary);
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-login-glow:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(88,101,242,.5);
+}
+
+/* MOCKUP */
+.mockup-wrapper{flex:1;display:flex;justify-content:center;perspective:1000px;}
+
+.mockup{
+    width:100%;
+    max-width:420px;
+    background:var(--glass);
+    backdrop-filter:blur(20px);
+    border-radius:25px;
+    padding:30px;
+    transition:.2s;
+    transform-style:preserve-3d;
+}
+
+.mockup img{width:70px;margin-bottom:15px;}
+
+/* FEATURES */
+.features{
+    padding:120px 8%;
+    text-align:center;
+}
+
+.feature-grid{
+    margin-top:60px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.feature-card{
+    background:var(--glass);
+    padding:40px;
+    border-radius:20px;
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .6s ease;
+}
+
+.feature-card.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:40px;
+    color:#666;
+    font-size:.85rem;
+}
+
+/* PAGE FADE OUT */
+.fade-out{
+    animation:fadeOut .5s forwards;
+}
+
+@keyframes fadeOut{
+    to{opacity:0;transform:scale(.98);}
+}
+
+@media(max-width:900px){
+    .hero{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+    <div class="logo">
+        <img src="assets/img/icon.png">
+        LEGACY
+        <span class="beta-tag">BETA</span>
+    </div>
+</nav>
+
+<section class="hero">
+
+<div class="hero-left">
+    <h1>Profesyonel Sesli İletişim</h1>
+    <p>
+        Ultra düşük gecikme, yüksek kaliteli ses ve güvenli altyapı.
+        Modern topluluklar için tasarlandı.
+    </p>
+
+    <button class="btn-login-glow" id="googleLoginBtn">
+        Web Üzerinden Devam Et
+    </button>
+</div>
+
+<div class="mockup-wrapper">
+    <div class="mockup" id="mockup">
+        <img src="assets/img/icon.png">
+        <h3>LEGACY Voice Room</h3>
+        <p>Gerçek zamanlı bağlantı</p>
+        <p>Yüksek performanslı altyapı</p>
+        <p>Şifreli veri iletimi</p>
+    </div>
+</div>
+
+</section>
+
+<section class="features">
+    <h2>Özellikler</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <i class="fa-solid fa-bolt fa-2x"></i>
+            <h3>Düşük Gecikme</h3>
+            <p>Anlık iletişim için optimize edilmiş altyapı.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fa-solid fa-wave-square fa-2x"></i>
+            <h3>Kristal Netliğinde Ses</h3>
+            <p>Gelişmiş ses işleme teknolojisi.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fa-solid fa-shield-halved fa-2x"></i>
+            <h3>Güvenli Bağlantı</h3>
+            <p>Modern şifreleme protokolleri ile korunur.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+© 2026 LEGACY — Designed by Batuhime ⚡
+</footer>
+
+<script type="module" src="assets/js/auth.js"></script>
+
+<script>
+/* SCROLL REVEAL */
+const cards = document.querySelectorAll('.feature-card');
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        }
+    });
+},{threshold:.2});
+cards.forEach(card=>observer.observe(card));
+
+/* 3D PARALLAX */
+const mockup=document.getElementById("mockup");
+document.addEventListener("mousemove",(e)=>{
+let x=(window.innerWidth/2-e.pageX)/40;
+let y=(window.innerHeight/2-e.pageY)/40;
+mockup.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+d:Math.random()*0.5
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(88,101,242,0.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.d;
+if(p.y>canvas.height)p.y=0;
+});
+requestAnimationFrame(draw);
+}
+draw();
+
+/* LOGIN SMOOTH TRANSITION */
+document.getElementById("googleLoginBtn").addEventListener("click",()=>{
+document.body.classList.add("fade-out");
+setTimeout(()=>{
+    // auth.js normal şekilde çalışacak
+},400);
+});
+</script>
+
+</body>
+</html>

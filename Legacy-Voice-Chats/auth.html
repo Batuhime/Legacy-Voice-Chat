@@ -1,0 +1,22 @@
+<script type="module">
+  import { auth, provider, signInWithPopup, GoogleAuthProvider } from "./firebase-config.js";
+
+  // HER SEFERİNDE HESAP SEÇTİRMEK İÇİN (Senin istediğin fix)
+  provider.setCustomParameters({ prompt: 'select_account' });
+
+  async function startAuth() {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+      // Uygulamaya geri dön ve token'ı gönder
+      window.location.href = `legacy-app://auth?token=${idToken}`; 
+      
+      // İşlem bitince tarayıcı sekmesini kapatabiliriz
+      setTimeout(() => window.close(), 2000);
+    } catch (error) {
+        document.body.innerText = "Hata oluştu: " + error.message;
+    }
+  }
+  startAuth();
+</script>
+<body>Giriş yapılıyor, lütfen bekleyin...</body>

@@ -1,0 +1,27 @@
+{
+  "name": "legacy-chat",
+  "version": "1.0.0",
+  "description": "Legacy Voice Chat Desktop Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.batu.legacy",
+    "productName": "LEGACY",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "assets/img/icon.ico"
+    }
+  },
+  "author": "Batu",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^40.4.0",
+    "electron-builder": "^26.7.0"
+  }
+}

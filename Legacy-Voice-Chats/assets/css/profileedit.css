@@ -1,0 +1,298 @@
+/* LEGACY - PROFILE EDIT PAGE */
+:root {
+    --primary: #8a2be2;
+    --secondary: #00ffff;
+    --accent: #ff00cc;
+    --bg-dark: #0a0a14;
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 40px rgba(0,0,0,0.5);
+    --success: #00ff88;
+    --error: #ff4d4d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+/* BACKGROUND */
+.profile-bg {
+    position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(circle at 15% 15%, #1a0b2e 0%, #0a0a14 100%);
+    background-size: cover;
+}
+.profile-bg::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* NAVBAR */
+.profile-nav {
+    position: fixed; top: 0; left: 0; right: 0; height: 70px;
+    display: flex; align-items: center;
+    padding: 0 5%; background: rgba(10, 10, 20, 0.8);
+    backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+}
+
+.nav-container { width: 100%; display: flex; align-items: center; }
+.nav-left { display: flex; align-items: center; gap: 20px; }
+
+.back-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--glass); padding: 8px 12px; border-radius: 10px;
+    color: #fff; text-decoration: none; transition: 0.3s;
+    border: 1px solid var(--glass-border);
+}
+.back-btn:hover { border-color: var(--primary); color: var(--secondary); }
+
+.nav-title { font-size: 1.1rem; font-weight: 700; }
+
+/* MAIN LAYOUT */
+.profile-main {
+    padding: 90px 5% 50px 5%; max-width: 700px; margin: 0 auto;
+}
+
+/* PROFILE CARD */
+.profile-card {
+    background: var(--glass); border-radius: 25px;
+    border: 1px solid var(--glass-border); padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+/* AVATAR SECTION */
+.avatar-section {
+    text-align: center; margin-bottom: 40px;
+}
+
+.avatar-wrapper {
+    position: relative; width: 120px; height: 120px;
+    margin: 0 auto 15px;
+    border-radius: 50%; cursor: pointer;
+}
+
+.profile-avatar {
+    width: 100%; height: 100%; border-radius: 50%;
+    object-fit: cover; border: 3px solid var(--primary);
+}
+
+.change-avatar-btn {
+    position: absolute; bottom: 0; right: 0;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    border: 2px solid #0a0a14; color: #fff; font-size: 1rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: 0.3s;
+}
+.change-avatar-btn:hover { transform: scale(1.1); }
+
+.avatar-hint {
+    opacity: 0.6; font-size: 0.85rem;
+}
+
+/* FORM STYLING */
+.profile-form {
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block; font-size: 0.75rem; opacity: 0.5;
+    margin-bottom: 8px; font-weight: 600; text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%; padding: 12px 15px;
+    border-radius: 12px; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    color: #fff; outline: none; transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+    background: rgba(138, 43, 226, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #555;
+}
+
+.form-group textarea {
+    resize: vertical; font-family: 'Inter', sans-serif;
+}
+
+.char-count {
+    display: block; font-size: 0.7rem; opacity: 0.4; margin-top: 4px;
+}
+
+/* SOCIAL SECTION */
+.social-section {
+    margin-top: 35px; padding-top: 30px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.social-section h3 {
+    font-size: 0.9rem; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.social-section h3 i {
+    color: var(--secondary);
+}
+
+.social-input {
+    display: flex; align-items: center;
+    background: rgba(255,255,255,0.05); border-radius: 12px;
+    border: 1px solid var(--glass-border); padding: 0 12px;
+    transition: 0.3s;
+}
+
+.social-input:focus-within {
+    border-color: var(--primary);
+    background: rgba(138, 43, 226, 0.1);
+}
+
+.social-input i {
+    color: var(--secondary); margin-right: 10px; font-size: 1.2rem;
+}
+
+.social-input input {
+    flex: 1; background: none; border: none;
+    padding: 12px 0; outline: none;
+}
+
+/* BUTTONS */
+.form-actions {
+    display: flex; gap: 15px; margin-top: 30px;
+}
+
+.btn-save,
+.btn-reset {
+    flex: 1; padding: 12px; border-radius: 12px;
+    border: none; font-weight: 600; cursor: pointer;
+    transition: 0.3s; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
+}
+
+.btn-save {
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    color: white; box-shadow: 0 8px 20px rgba(255, 0, 204, 0.3);
+}
+
+.btn-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 0, 204, 0.5);
+}
+
+.btn-reset {
+    background: rgba(255,255,255,0.05); color: #fff;
+    border: 1px solid var(--glass-border);
+}
+
+.btn-reset:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--secondary);
+}
+
+/* DANGER SECTION */
+.danger-section {
+    margin-top: 40px; padding-top: 30px;
+    border-top: 1px solid rgba(255, 77, 77, 0.3);
+}
+
+.danger-section h3 {
+    color: var(--error); font-size: 0.9rem;
+    margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+}
+
+.btn-logout {
+    width: 100%; padding: 12px; border-radius: 12px;
+    background: rgba(255, 77, 77, 0.15); color: var(--error);
+    border: 1px solid rgba(255, 77, 77, 0.3); font-weight: 600;
+    cursor: pointer; transition: 0.3s; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 77, 77, 0.25);
+    border-color: var(--error);
+}
+
+/* LOADING STATE */
+.loading {
+    opacity: 0.5; pointer-events: none;
+}
+
+/* TOAST NOTIFICATION */
+.toast-notification {
+    position: fixed; bottom: 30px; right: 30px;
+    background: rgba(0, 255, 136, 0.2); border: 1px solid var(--success);
+    color: var(--success); padding: 15px 20px; border-radius: 12px;
+    display: flex; align-items: center; gap: 12px;
+    animation: slideIn 0.3s ease; opacity: 0; pointer-events: none;
+    z-index: 9999;
+}
+
+.toast-notification.show {
+    opacity: 1; pointer-events: all;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .desktop-only { display: none !important; }
+    
+    .profile-nav { height: 65px; padding: 0 4%; }
+    .nav-title { font-size: 0.95rem; }
+    .back-btn { padding: 8px 10px; font-size: 0.85rem; }
+    
+    .profile-main { padding: 80px 4% 40px 4%; }
+    
+    .profile-card { padding: 30px 20px; }
+    
+    .avatar-section { margin-bottom: 30px; }
+    .profile-avatar { width: 100px; height: 100px; }
+    
+    .form-group { margin-bottom: 20px; }
+    .form-actions { flex-direction: column; }
+    
+    .toast-notification { right: 15px; left: 15px; }
+}
+
+@media (max-width: 480px) {
+    .profile-main { padding: 75px 3% 30px 3%; }
+    
+    .profile-card { padding: 20px; border-radius: 15px; }
+    
+    .profile-avatar { width: 90px; height: 90px; }
+    .change-avatar-btn { width: 36px; height: 36px; font-size: 0.85rem; }
+    
+    .nav-left { gap: 12px; }
+    .back-btn { padding: 6px 8px; }
+    
+    .form-group label { font-size: 0.7rem; }
+    .form-group input,
+    .form-group textarea { padding: 10px 12px; font-size: 0.85rem; }
+    
+    .social-section h3 { margin-bottom: 15px; }
+    
+    .btn-save, .btn-reset {
+        padding: 10px; font-size: 0.85rem;
+    }
+    
+    .toast-notification { padding: 12px 15px; font-size: 0.85rem; }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Lobi • Batuhime LEGACY</title>
+    <meta name="description" content="Sesli sohbet odaları lobisi. Oda oluştur veya mevcut odalara katıl." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Lobi • Batuhime LEGACY" />
+    <meta property="og:description" content="Sesli sohbet odaları. Oda oluştur veya katıl." />
+    <meta property="og:image" content="assets/img/icon.png" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://batuhime.com/dashboard.html" />
+    <link rel="icon" type="image/png" href="assets/img/icon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+    <div class="dashboard-bg"></div>
+
+    <nav class="dashboard-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <img src="assets/img/icon.png" alt="Legacy">
+                <div class="logo-text">
+                    <span>LEGACY</span>
+                    <span class="beta-badge">BETA</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="profile-wrapper">
+                <div class="profile-pill" id="profileToggle">
+                    <img id="navAvatar" src="assets/img/default-avatar.png" class="nav-avatar">
+                    <div class="profile-info desktop-only">
+                        <span id="navUsername">Yükleniyor...</span>
+                        <small>Çevrimiçi</small>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="profileMenu">
+                    <a href="profileedit.html" class="menu-item"><i class="fa-solid fa-id-card"></i> Profil</a>
+                    <div class="menu-divider"></div>
+                    <a href="#" id="logoutBtn" class="menu-item logout"><i class="fa-solid fa-power-off"></i> Çıkış</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        
+        <section class="hero-section">
+            <div class="welcome-block">
+                <h1>Hoş Geldin, <span class="highlight">Lord</span></h1>
+                <p>Dünyalar senin emirlerini bekliyor.</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-dungeon"></i></div>
+                    <div class="stat-data">
+                        <span id="totalRooms">0</span>
+                        <small>Bölgeler</small>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <div class="stat-data">
+                        <span id="totalOnlineUsers">0</span>
+                        <small>Keşifçiler</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="rooms-container">
+            <div class="container-header">
+                <h2><i class="fa-solid fa-compass"></i> Açık Dünyalar</h2>
+                <button type="button" class="dashboard-bell-btn" id="dashboardBellBtn" title="Kanala giriş/çıkış bildirimleri" aria-label="Bildirimleri aç/kapat">
+                    <i class="fa-solid fa-bell" id="dashboardBellIcon"></i>
+                    <i class="fa-solid fa-bell-slash" id="dashboardBellIconOff" style="display:none;"></i>
+                </button>
+                <div class="search-box desktop-only">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Bölge ara...">
+                </div>
+            </div>
+            <div class="rooms-grid" id="roomsContainer">
+                </div>
+        </section>
+
+        <section class="download-banner">
+            <div class="banner-content">
+                <i class="fa-solid fa-lock banner-lock"></i>
+                <h3>Masaüstü Deneyimi</h3>
+                <p>Daha düşük gecikme ve yüksek performans için EXE sürümü yakında.</p>
+                <button class="btn-primary-glow" disabled>Çok Yakında</button>
+            </div>
+        </section>
+    </main>
+
+    <button id="createRoomBtn" class="fab-btn">
+        <i class="fa-solid fa-plus"></i>
+        <span class="desktop-only">Bölge Kur</span>
+    </button>
+
+    <div id="createRoomModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Yeni Bölge Kur</h3>
+                <button id="closeCreateModal" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Bölge Adı</label>
+                    <input type="text" id="roomNameInput" placeholder="Bölge adı girin..." maxlength="25">
+                </div>
+                <div class="form-group">
+                    <label>Açıklama</label>
+                    <input type="text" id="roomDescInput" placeholder="Kısaca tanıtın..." maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label>Bölge Simgesi</label>
+                    <div class="icon-selector">
+                        <div class="icon-option selected" data-icon="fa-hashtag"><i class="fa-solid fa-hashtag"></i></div>
+                        <div class="icon-option" data-icon="fa-gamepad"><i class="fa-solid fa-gamepad"></i></div>
+                        <div class="icon-option" data-icon="fa-dragon"><i class="fa-solid fa-dragon"></i></div>
+                        <div class="icon-option" data-icon="fa-music"><i class="fa-solid fa-music"></i></div>
+                    </div>
+                    <input type="hidden" id="selectedIconInput" value="fa-hashtag">
+                </div>
+
+                <div class="form-group">
+                    <label>Bölge Özellikleri</label>
+                    <div class="features-toggles">
+                        <div class="feature-toggle">
+                            <label for="enableVideo" class="toggle-label">
+                                <input type="checkbox" id="enableVideo" checked>
+                                <span class="toggle-switch"></span>
+                                <span class="toggle-text"><i class="fa-solid fa-camera"></i> Kamera</span>
+                            </label>
+                        </div>
+                        <div class="feature-toggle">
+                            <label for="enableScreenShare" class="toggle-label">
+                                <input type="checkbox" id="enableScreenShare" checked>
+                                <span class="toggle-switch"></span>
+                                <span class="toggle-text"><i class="fa-solid fa-desktop"></i> Ekran Paylaş</span>
+                            </label>
+                        </div>
+                        <div class="feature-toggle">
+                            <label for="enableText" class="toggle-label">
+                                <input type="checkbox" id="enableText" checked>
+                                <span class="toggle-switch"></span>
+                                <span class="toggle-text"><i class="fa-solid fa-message"></i> Metin Chat</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmCreateRoom" class="btn-primary-glow">Bölgeyi Başlat</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/dashboard.js"></script>
+</body>
+</html>

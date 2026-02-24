@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Profil Düzenle • Batuhime LEGACY</title>
+    <meta name="description" content="Batuhime LEGACY profil ayarlarını düzenle." />
+    <meta name="robots" content="noindex, follow" />
+    <meta property="og:title" content="Profil Düzenle • Batuhime LEGACY" />
+    <link rel="icon" type="image/png" href="assets/img/icon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/profileedit.css" />
+</head>
+<body class="profile-body">
+
+    <div class="profile-bg"></div>
+
+    <!-- NAV BAR -->
+    <nav class="profile-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="dashboard.html" class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="desktop-only">Dashboard'a Dön</span>
+                </a>
+                <h1 class="nav-title">Profil Düzenleme</h1>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="profile-main">
+        
+        <!-- PROFILE CARD -->
+        <div class="profile-card">
+            
+            <!-- AVATAR SECTION -->
+            <div class="avatar-section">
+                <div class="avatar-wrapper">
+                    <img id="profileAvatar" src="assets/img/default-avatar.png" alt="Profile Avatar" class="profile-avatar">
+                    <button id="changeAvatarBtn" class="change-avatar-btn" title="Fotoğraf Değiştir">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                </div>
+                <p class="avatar-hint">Profil fotoğrafını yüklemek için tıkla</p>
+            </div>
+
+            <!-- FORM SECTION -->
+            <form id="profileForm" class="profile-form">
+                
+                <div class="form-group">
+                    <label for="displayName">Görünen Ad</label>
+                    <input 
+                        type="text" 
+                        id="displayName" 
+                        placeholder="Adını gir..." 
+                        maxlength="30"
+                        required
+                    >
+                    <small class="char-count">0/30</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Biyografi</label>
+                    <textarea 
+                        id="bio" 
+                        placeholder="Kendinle ilgili birşeyler yaz..."
+                        maxlength="150"
+                        rows="4"
+                    ></textarea>
+                    <small class="char-count">0/150</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Durumun</label>
+                    <input 
+                        type="text" 
+                        id="status" 
+                        placeholder="Şu anda ne yapıyorsun?" 
+                        maxlength="50"
+                    >
+                    <small class="char-count">0/50</small>
+                </div>
+
+                <!-- SOCIAL LINKS -->
+                <div class="social-section">
+                    <h3><i class="fa-solid fa-link"></i> Sosyal Ağlar</h3>
+                    
+                    <div class="form-group">
+                        <label for="twitter">Twitter/X</label>
+                        <div class="social-input">
+                            <i class="fa-brands fa-twitter"></i>
+                            <input 
+                                type="text" 
+                                id="twitter" 
+                                placeholder="Kullanıcı adı (@ hariç)"
+                                maxlength="20"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="discord">Discord</label>
+                        <div class="social-input">
+                            <i class="fa-brands fa-discord"></i>
+                            <input 
+                                type="text" 
+                                id="discord" 
+                                placeholder="Kullanıcı adı#1234"
+                                maxlength="37"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="twitch">Twitch</label>
+                        <div class="social-input">
+                            <i class="fa-brands fa-twitch"></i>
+                            <input 
+                                type="text" 
+                                id="twitch" 
+                                placeholder="Kanalın adı"
+                                maxlength="25"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">
+                        <i class="fa-solid fa-floppy-disk"></i> Değişiklikleri Kaydet
+                    </button>
+                    <button type="reset" class="btn-reset">
+                        <i class="fa-solid fa-rotate-left"></i> Sıfırla
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- DANGER SECTION -->
+            <div class="danger-section">
+                <h3><i class="fa-solid fa-exclamation-triangle"></i> Tehlikeli İşlemler</h3>
+                <button id="logoutProfileBtn" class="btn-logout">
+                    <i class="fa-solid fa-power-off"></i> Çıkış Yap
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toastNotification" class="toast-notification">
+        <i class="fa-solid fa-check-circle"></i>
+        <span id="toastMessage">Profil başarıyla güncellendi!</span>
+    </div>
+
+    <script type="module" src="assets/js/profileedit.js"></script>
+</body>
+</html>

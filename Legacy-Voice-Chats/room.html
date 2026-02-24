@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sesli Oda • Batuhime LEGACY</title>
+    <meta name="description" content="Sesli sohbet odasında canlı bağlantı. Konuşan kişiyi gör, ağ durumunu takip et.">
+    <meta name="robots" content="noindex, follow">
+    <meta property="og:title" content="Sesli Oda • Batuhime LEGACY">
+    <meta property="og:description" content="Canlı sesli sohbet odası.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link rel="shortcut icon" href="assets/img/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/room.css">
+</head>
+<body class="room-page">
+
+    <div class="background-orb orb-1"></div>
+    <div class="background-orb orb-2"></div>
+
+    <!-- Dışarı tıklanınca panelleri kapatır (mobil + masaüstü) -->
+    <div class="panel-backdrop" id="panelBackdrop" onclick="closePanel()" aria-hidden="true"></div>
+
+    <!-- Desktop Panel Toggle Buttons -->
+    <button class="panel-toggle-btn panel-toggle-desktop users-toggle" onclick="togglePanel('users')" title="Üyeleri aç/kapat" style="display: none;" id="desktopUsersToggle">
+        <i class="fa-solid fa-users"></i>
+    </button>
+    <button class="panel-toggle-btn panel-toggle-desktop chat-toggle" onclick="togglePanel('chat')" title="Sohbeti aç/kapat" style="display: none;" id="desktopChatToggle">
+        <i class="fa-solid fa-message"></i>
+    </button>
+
+    <div class="room-grid">
+        
+        <div class="glass-panel side-panel left-panel" id="leftPanel">
+            <div class="panel-header">
+                <h3>ÜYELER <span class="count" id="userCount">0</span></h3>
+                <button type="button" class="icon-btn mobile-close" onclick="closePanel('users')" title="Kapat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="user-list" id="userListContainer"></div>
+        </div>
+
+        <div class="main-stage">
+            <div class="room-info-pill" id="roomHeader">
+                Bağlanılıyor...
+            </div>
+
+            <!-- Bildirim çanı: kanala giriş/çıkış tarayıcı bildirimi -->
+            <button type="button" class="room-bell-btn" id="roomBellBtn" onclick="toggleRoomNotifications()" title="Kanala giriş/çıkış bildirimleri" aria-label="Bildirimleri aç/kapat">
+                <i class="fa-solid fa-bell" id="roomBellIcon"></i>
+                <i class="fa-solid fa-bell-slash" id="roomBellIconOff" style="display:none;"></i>
+            </button>
+
+            <!-- BAĞLANTI + KONUŞAN KİŞİ DURUMU -->
+            <div class="room-status-bar">
+                <div class="status-item connection-status" id="connectionStatus">
+                    <span class="status-dot" id="connectionDot"></span>
+                    <span id="connectionText">Bağlanıyor...</span>
+                </div>
+                <div class="status-item speaker-status" id="speakerStatus">
+                    <span class="speaker-dot"></span>
+                    <span id="currentSpeakerText">Konuşan: Yok</span>
+                </div>
+            </div>
+
+            <!-- NETWORK QUALITY INDICATOR -->
+            <div class="network-quality-indicator">
+                <span class="quality-label">Ağ:</span>
+                <div class="quality-bars">
+                    <div class="quality-bar bar-1"></div>
+                    <div class="quality-bar bar-2"></div>
+                    <div class="quality-bar bar-3"></div>
+                </div>
+                <span id="qualityText" class="quality-text">Mükemmel</span>
+            </div>
+
+            <div class="active-speaker-container">
+                <!-- Ekran/Kamera Paylaşım Video Grid -->
+                <div class="video-stage" id="videoStage" style="display: none;">
+                    <!-- Video containers buraya dinamik eklenir -->
+                </div>
+
+                <!-- Kullanıcı Profile Bubbles -->
+                <div class="floating-stage" id="bubbleStage">
+                    <p style="color:rgba(255,255,255,0.3); font-size: 0.9rem;">Bölgeye giriş yapılıyor...</p>
+                </div>
+            </div>
+
+            <div class="control-dock">
+                <button class="dock-btn" id="micBtn" onclick="toggleMic()" title="Mikrofon">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                
+                <button class="dock-btn" id="audioBtn" onclick="toggleAudio()" title="Hoparlör">
+                    <i class="fa-solid fa-headphones"></i>
+                </button>
+
+                <button class="dock-btn" id="settingsBtn" onclick="openSettings()" title="Ayarlar">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
+
+                <button class="dock-btn desktop-only" onclick="startScreenShare()" title="Ekran Paylaş">
+                    <i class="fa-solid fa-desktop"></i>
+                </button>
+
+                <button class="dock-btn desktop-only" onclick="startCameraShare()" title="Kamera Paylaş">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+                
+                <div class="divider-vertical desktop-only"></div>
+                
+                <button class="dock-btn mobile-toggle" onclick="togglePanel('chat')" title="Sohbet">
+                    <i class="fa-solid fa-message"></i>
+                </button>
+                <button class="dock-btn mobile-toggle" onclick="togglePanel('users')" title="Üyeler">
+                    <i class="fa-solid fa-users"></i>
+                </button>
+                
+                <button class="dock-btn hangup" onclick="leaveRoom()" title="Çıkış">
+                    <i class="fa-solid fa-phone-slash"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="glass-panel side-panel right-panel" id="rightPanel">
+            <div class="panel-header">
+                <h3>SOHBET</h3>
+                <button type="button" class="icon-btn mobile-close" onclick="closePanel('chat')" title="Kapat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="chat-area" id="chatContainer"></div>
+
+            <div class="chat-input-wrapper">
+                <input type="text" id="msgInput" placeholder="Mesaj yaz..." class="glass-input" autocomplete="off">
+                <button class="send-btn" id="sendBtn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal-overlay">
+        <div class="glass-card modal-content settings-advanced">
+
+            <div class="settings-header">
+                <h2><i class="fa-solid fa-gear"></i> Ses & Cihaz Ayarları</h2>
+                <button class="icon-btn" onclick="closeSettings()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- MİKROFON -->
+            <div class="settings-section">
+                <h4>🎤 Mikrofon</h4>
+
+                <label>Kalite</label>
+                <select id="audioQuality" class="glass-input-modal" onchange="changeAudioQuality()">
+                    <option value="high">Yüksek (128kbps)</option>
+                    <option value="medium">Orta (96kbps)</option>
+                    <option value="low">Düşük (64kbps)</option>
+                </select>
+
+                <label>Cihaz</label>
+                <select id="micSelect" class="glass-input-modal" onchange="changeDevice('mic')"></select>
+
+                <label>Giriş Seviyesi</label>
+                <input type="range" id="micVolume" min="0" max="200" value="100">
+
+                <div class="vu-meter">
+                    <div class="vu-fill" id="micLevel"></div>
+                </div>
+
+                <div class="toggle-row">
+                    <label>
+                        <input type="checkbox" id="noiseSuppression" checked>
+                        Gürültü Azaltma
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="autoGain" checked>
+                        Otomatik Kazanç
+                    </label>
+                </div>
+            </div>
+
+            <!-- HOPARLÖR -->
+            <div class="settings-section">
+                <h4>🔊 Hoparlör</h4>
+
+                <label>Cihaz</label>
+                <select id="speakerSelect" class="glass-input-modal" onchange="changeDevice('speaker')"></select>
+
+                <label>Çıkış Seviyesi</label>
+                <input type="range" id="speakerVolume" min="0" max="100" value="80">
+
+                <button class="test-audio-btn" onclick="playTestSound()">
+                    Test Sesi Çal
+                </button>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="saveAudioSettings()" class="btn-create">Kaydet</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.20.0.js"></script>
+    <!-- Panel aç/kapa - modül yüklenmeden de çalışsın (mobil tepki) -->
+    <script>
+    (function() {
+        function el(id) { return document.getElementById(id); }
+        window.togglePanel = function(panel) {
+            var r = el("rightPanel"), l = el("leftPanel");
+            if (!r || !l) return;
+            if (panel === "chat") {
+                r.classList.toggle("active");
+                l.classList.remove("active");
+            } else if (panel === "users") {
+                l.classList.toggle("active");
+                r.classList.remove("active");
+            }
+        };
+        window.closePanel = function(which) {
+            var r = el("rightPanel"), l = el("leftPanel");
+            if (!r || !l) return;
+            if (which === "chat") r.classList.remove("active");
+            else if (which === "users") l.classList.remove("active");
+            else { l.classList.remove("active"); r.classList.remove("active"); }
+        };
+    })();
+    </script>
+    <script type="module" src="assets/js/room-simple.js"></script>
+</body> 
+</html>

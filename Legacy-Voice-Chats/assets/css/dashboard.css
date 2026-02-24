@@ -1,0 +1,404 @@
+/* LEGACY - PROFESSIONAL DASHBOARD CORE */
+:root {
+    --primary: #8a2be2;
+    --secondary: #00ffff;
+    --accent: #ff00cc;
+    --bg-dark: #0a0a14;
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+/* Background Grid */
+.dashboard-bg {
+    position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(circle at 15% 15%, #1a0b2e 0%, #0a0a14 100%);
+    background-size: cover;
+}
+.dashboard-bg::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* NAVBAR FİX */
+.dashboard-nav {
+    position: fixed; top: 0; left: 0; right: 0; height: 75px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 5%; background: rgba(10, 10, 20, 0.8);
+    backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+}
+
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { height: 35px; filter: drop-shadow(0 0 8px var(--primary)); }
+.logo-text span { display: block; font-weight: 800; letter-spacing: 2px; }
+.beta-badge { font-size: 0.6rem; background: linear-gradient(45deg, var(--accent), var(--primary)); padding: 2px 8px; border-radius: 20px; font-weight: bold; }
+
+/* PROFİL FİX (Sağ Üst Köşe) */
+.profile-wrapper { position: relative; }
+.profile-pill {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--glass); padding: 5px 15px 5px 5px;
+    border-radius: 50px; border: 1px solid var(--glass-border);
+    cursor: pointer; transition: 0.3s;
+}
+.profile-pill:hover { border-color: var(--primary); }
+.nav-avatar { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--primary); }
+.profile-info span { display: block; font-size: 0.85rem; font-weight: 600; }
+.profile-info small { color: #00ffcc; font-size: 0.7rem; }
+
+/* Dropdown */
+.dropdown-menu {
+    position: absolute; top: 60px; right: 0; width: 180px;
+    background: #151525; border: 1px solid var(--glass-border);
+    border-radius: 15px; padding: 10px; display: none;
+    box-shadow: var(--shadow); z-index: 5000;
+}
+.dropdown-menu.active { display: block; animation: dropdownAnim 0.3s ease; }
+@keyframes dropdownAnim { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+.menu-item { display: flex; align-items: center; gap: 10px; padding: 10px; color: #ccc; text-decoration: none; border-radius: 8px; font-size: 0.9rem; }
+.menu-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+.menu-item.logout { color: #ff4d4d; }
+
+/* MAIN LAYOUT */
+.dashboard-main { padding: 110px 5% 150px 5%; max-width: 1400px; margin: 0 auto; }
+
+/* HERO SECTİON */
+.hero-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 30px; }
+.welcome-block h1 { font-size: 2.8rem; font-weight: 800; }
+.welcome-block .highlight { background: linear-gradient(to right, var(--primary), var(--secondary)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.welcome-block p { opacity: 0.6; font-size: 1.1rem; }
+
+.stats-container { display: flex; gap: 20px; }
+.stat-card { background: var(--glass); padding: 20px 30px; border-radius: 20px; display: flex; align-items: center; gap: 20px; border: 1px solid var(--glass-border); }
+.stat-icon { font-size: 1.8rem; color: var(--secondary); }
+.stat-data span { display: block; font-size: 1.8rem; font-weight: 800; line-height: 1; }
+.stat-data small { font-size: 0.75rem; color: #888; text-transform: uppercase; }
+
+/* ROOMS GRID */
+.container-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+.container-header h2 { font-size: 1.3rem; font-weight: 700; }
+
+/* Bildirim çanı – kanala giriş/çıkış bildirimleri (katılma bölümünde) */
+.dashboard-bell-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+}
+.dashboard-bell-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+.dashboard-bell-btn.active {
+    background: rgba(138, 43, 226, 0.35);
+    color: var(--secondary);
+    border-color: var(--primary);
+}
+.dashboard-bell-btn i { pointer-events: none; }
+
+/* SEARCH BOX */
+.search-box {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--glass); padding: 10px 15px;
+    border-radius: 12px; border: 1px solid var(--glass-border);
+    max-width: 300px;
+}
+.search-box i { color: #888; font-size: 0.9rem; }
+.search-box input {
+    flex: 1; background: none; border: none; color: #fff;
+    outline: none; font-size: 0.9rem; min-width: 150px;
+}
+.search-box input::placeholder { color: #666; }
+.search-box input:focus { outline: none; }
+
+.rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+
+/* KART İÇİ BUTON FİX (Gri Buton Sorunu Çözümü) */
+.room-card-modern {
+    background: var(--glass); border-radius: 24px; padding: 25px;
+    border: 1px solid var(--glass-border); transition: 0.3s;
+    position: relative; overflow: hidden; display: flex; flex-direction: column;
+}
+.room-card-modern:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+
+.room-card-modern h3 {
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+}
+.room-card-modern h3 i { color: var(--secondary); }
+
+.room-card-modern p {
+    font-size: 0.85rem; opacity: 0.7; margin-bottom: 15px; line-height: 1.4; flex-grow: 1;
+}
+
+.room-card-stats {
+    display: flex; justify-content: space-between; margin-bottom: 15px;
+    font-size: 0.8rem; opacity: 0.6;
+}
+.room-card-stats span { display: flex; align-items: center; gap: 6px; }
+.room-card-stats i { color: var(--secondary); }
+
+.delete-room-btn {
+    position: absolute; top: 15px; right: 15px;
+    background: rgba(255, 77, 77, 0.2); border: 1px solid rgba(255, 77, 77, 0.5);
+    color: #ff4d4d; width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+}
+.delete-room-btn:hover { background: rgba(255, 77, 77, 0.3); }
+
+/* Oda Kartındaki Katıl Butonu */
+.join-room-btn {
+    width: 100%; padding: 12px;
+    border-radius: 14px; border: none;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white; font-weight: 700; cursor: pointer;
+    transition: 0.3s; margin-top: auto;
+}
+.join-room-btn:hover { filter: brightness(1.2); box-shadow: 0 0 20px rgba(138, 43, 226, 0.4); }
+
+/* Create Modalda ve Genel Kullanılan Parlayan Buton */
+.btn-primary-glow {
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    padding: 12px 25px; border-radius: 50px; border: none;
+    color: white; font-weight: 700; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 0, 204, 0.3); transition: 0.3s;
+}
+.btn-primary-glow:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255, 0, 204, 0.5); }
+.btn-primary-glow:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* DOWNLOAD BANNER */
+.download-banner {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(255, 0, 204, 0.1));
+    border: 1px solid var(--glass-border); border-radius: 15px;
+    padding: 30px; margin: 50px 0; text-align: center;
+}
+.banner-content { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.banner-lock { font-size: 2.5rem; color: var(--accent); opacity: 0.7; }
+.download-banner h3 { font-size: 1.3rem; font-weight: 700; }
+.download-banner p { opacity: 0.6; font-size: 0.95rem; max-width: 400px; }
+
+/* FAB BUTON */
+.fab-btn {
+    position: fixed; bottom: 30px; right: 30px;
+    padding: 15px 25px; border-radius: 50px; border: none;
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    color: white; display: flex; align-items: center; gap: 10px;
+    font-weight: 800; cursor: pointer; z-index: 5000;
+    box-shadow: 0 15px 35px rgba(255, 0, 204, 0.3); transition: 0.3s;
+}
+.fab-btn:hover { transform: scale(1.05) translateY(-5px); }
+
+/* MODAL FIX */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px); z-index: 10000;
+    display: none; align-items: center; justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal-card { width: 90%; max-width: 450px; background: #141420; border-radius: 25px; border: 1px solid var(--glass-border); padding: 30px; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 0.8rem; opacity: 0.5; margin-bottom: 8px; font-weight: 600; }
+.form-group input { width: 100%; padding: 12px 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; outline: none; }
+.form-group input:focus { border-color: var(--primary); }
+
+/* ICON SELECTOR */
+.icon-selector {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.icon-option {
+    width: 100%; aspect-ratio: 1/1; border-radius: 12px; 
+    border: 2px solid var(--glass-border); background: rgba(255,255,255,0.03);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; cursor: pointer; transition: 0.3s; color: #888;
+}
+.icon-option:hover { border-color: var(--primary); color: var(--primary); }
+.icon-option.selected { border-color: var(--primary); background: rgba(138, 43, 226, 0.2); color: var(--secondary); }
+
+/* MODAL HEADER & FOOTER */
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
+.modal-header h3 { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+.modal-header h3 i { color: var(--accent); }
+.close-btn { background: none; border: none; color: #888; font-size: 1.3rem; cursor: pointer; transition: 0.3s; }
+.close-btn:hover { color: #fff; }
+
+.modal-body { margin-bottom: 20px; }
+.modal-footer { display: flex; gap: 12px; justify-content: flex-end; }
+.modal-footer button { flex: 1; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 0.8rem; opacity: 0.5; margin-bottom: 8px; font-weight: 600; }
+.form-group input { width: 100%; padding: 12px 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; outline: none; transition: 0.3s; }
+.form-group input:focus { border-color: var(--primary); background: rgba(138, 43, 226, 0.1); }
+.form-group input::placeholder { color: #666; }
+
+/* ICON SELECTOR */
+.icon-selector {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.icon-option {
+    width: 100%; aspect-ratio: 1/1; border-radius: 12px; 
+    border: 2px solid var(--glass-border); background: rgba(255,255,255,0.03);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; cursor: pointer; transition: 0.3s; color: #888;
+}
+.icon-option:hover { border-color: var(--primary); color: var(--primary); }
+.icon-option.selected { border-color: var(--primary); background: rgba(138, 43, 226, 0.2); color: var(--secondary); }
+
+/* MODAL HEADER & FOOTER */
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
+.modal-header h3 { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+.modal-header h3 i { color: var(--accent); }
+.close-btn { background: none; border: none; color: #888; font-size: 1.3rem; cursor: pointer; transition: 0.3s; }
+.close-btn:hover { color: #fff; }
+
+.modal-body { margin-bottom: 20px; }
+.modal-footer { display: flex; gap: 12px; justify-content: flex-end; }
+.modal-footer button { flex: 1; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 60px 20px; }
+.empty-state i { display: block; margin-bottom: 15px; }
+.empty-state p { opacity: 0.6; font-size: 0.95rem; }
+
+/* FEATURE TOGGLES */
+.features-toggles {
+    display: flex; flex-direction: column; gap: 12px;
+}
+
+.feature-toggle .toggle-label {
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; padding: 10px; border-radius: 10px;
+    transition: 0.3s; background: rgba(255,255,255,0.02);
+}
+
+.feature-toggle .toggle-label:hover {
+    background: rgba(138, 43, 226, 0.1);
+}
+
+.feature-toggle input[type="checkbox"] {
+    display: none;
+}
+
+.toggle-switch {
+    position: relative; width: 44px; height: 24px;
+    background: rgba(255,255,255,0.1); border-radius: 12px;
+    transition: 0.3s; border: 1px solid var(--glass-border);
+}
+
+.toggle-switch::after {
+    content: ""; position: absolute;
+    width: 20px; height: 20px; top: 2px; left: 2px;
+    background: #fff; border-radius: 10px;
+    transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.feature-toggle input[type="checkbox"]:checked + .toggle-switch {
+    background: var(--primary); border-color: var(--secondary);
+}
+
+.feature-toggle input[type="checkbox"]:checked + .toggle-switch::after {
+    left: 22px;
+}
+
+.toggle-text {
+    display: flex; align-items: center; gap: 8px;
+    color: #ccc; font-size: 0.9rem; font-weight: 500;
+}
+
+.feature-toggle input[type="checkbox"]:checked + .toggle-switch + .toggle-text {
+    color: var(--secondary);
+}
+
+/* FEATURE BADGES */
+.room-features {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+}
+
+.feature-badge {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(138, 43, 226, 0.2); color: var(--secondary);
+    padding: 4px 10px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600;
+    border: 1px solid rgba(138, 43, 226, 0.4);
+}
+
+.feature-badge i {
+    font-size: 0.8rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .desktop-only { display: none !important; }
+    
+    .dashboard-nav { padding: 0 4%; }
+    .nav-logo img { height: 30px; }
+    
+    .dashboard-main { padding: 90px 4% 140px 4%; }
+    
+    .hero-section { flex-direction: column; align-items: flex-start; }
+    .welcome-block h1 { font-size: 1.8rem; }
+    .welcome-block p { font-size: 0.95rem; }
+    
+    .stats-container { width: 100%; flex-direction: column; gap: 12px; }
+    .stat-card { width: 100%; padding: 15px 20px; }
+    .stat-icon { font-size: 1.4rem; }
+    .stat-data span { font-size: 1.4rem; }
+    
+    .rooms-grid { grid-template-columns: 1fr; gap: 18px; }
+    .room-card-modern { padding: 18px; }
+    
+    .fab-btn { width: 56px; height: 56px; padding: 0; justify-content: center; border-radius: 50%; bottom: 20px; right: 20px; font-size: 1.3rem; }
+    
+    .modal-card { width: 95%; padding: 20px; }
+    .icon-selector { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .icon-option { font-size: 1.5rem; }
+    
+    .container-header h2 { font-size: 1.1rem; }
+    .container-header { flex-direction: column; align-items: flex-start; }
+    .btn-primary-glow { padding: 10px 20px; font-size: 0.9rem; }
+    .download-banner { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+    .dashboard-main { padding: 80px 3% 130px 3%; }
+    
+    .logo-text span { font-size: 0.85rem; }
+    .beta-badge { font-size: 0.5rem; }
+    
+    .welcome-block h1 { font-size: 1.5rem; }
+    .welcome-block p { font-size: 0.85rem; }
+    
+    .stat-card { padding: 12px 15px; }
+    .stat-icon { font-size: 1.2rem; }
+    .stat-data span { font-size: 1.2rem; }
+    .stat-data small { font-size: 0.65rem; }
+    
+    .room-card-modern { padding: 15px; }
+    .room-card-modern h3 { font-size: 0.95rem; }
+    .room-card-stats { font-size: 0.75rem; }
+    
+    .icon-selector { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .icon-option { font-size: 1.3rem; }
+    .modal-footer { flex-direction: column; }
+    .modal-card { width: 98%; padding: 15px; }
+    .form-group input { padding: 10px 12px; font-size: 14px; }
+    .btn-primary-glow { padding: 8px 16px; font-size: 0.85rem; }
+}

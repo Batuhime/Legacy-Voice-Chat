@@ -1,0 +1,10 @@
+# Batuhime LEGACY - Arama motorları
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /dashboard.html
+
+# Oda sayfaları dinamik olduğu için isteğe bağlı:
+# Disallow: /room.html
+
+Sitemap: https://batuhime.com/sitemap.xml
